@@ -1,0 +1,193 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airtel DRC - Service status</title>
+    <link rel="icon" type="image/png" href="/static/images/airtel_logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --econet-blue: #1A3C8F;
+            --econet-dark-blue: #122A6B;
+            --ecocash-red: #E31837;
+            --ecocash-dark-red: #B8102B;
+        }
+        .econet-blue-bg {
+            background-color: var(--econet-blue);
+        }
+        .ecocash-red-bg {
+            background-color: var(--ecocash-red);
+        }
+        .econet-gradient {
+            background: linear-gradient(135deg, var(--econet-blue) 0%, var(--econet-dark-blue) 100%);
+        }
+        .ecocash-gradient {
+            background: linear-gradient(135deg, var(--ecocash-red) 0%, var(--ecocash-dark-red) 100%);
+        }
+        .card-shadow {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .package-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+        .package-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+        }
+        .package-card.selected {
+            border: 2px solid #1A3C8F;
+            background-color: #f0f4ff;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-[#E30613] text-white shadow-sm">
+        <div class="max-w-7xl mx-auto px-3 py-2 flex items-center justify-between">
+            <a href="/" class="flex items-center gap-2">
+                <img src="/static/images/airtel_logo.png" alt="Airtel DRC" class="h-12 object-contain bg-white rounded-md p-1">
+            </a>
+            <nav class="flex gap-6">
+                <a href="/dashboard/" class="text-red-100 hover:text-white flex items-center gap-2">
+                    <i class="uil uil-wifi"></i> <span class="hidden sm:inline" data-fr="Accueil" data-en="Home">Accueil</span>
+                </a>
+                <a href="/plans/" class="text-red-100 hover:text-white flex items-center gap-2">
+                    <i class="uil uil-home"></i> <span class="hidden sm:inline" data-fr="Forfaits" data-en="Plans">Forfaits</span>
+                </a>
+                
+                <div class="flex items-center gap-1 border border-red-200/50 rounded-full px-2 py-1 text-xs" aria-label="Language selector">
+                    <button type="button" data-lang="fr" class="text-red-100" onclick="setAirtelLanguage('fr')">FR</button><span class="text-red-200">/</span><button type="button" data-lang="en" class="font-bold text-white" onclick="setAirtelLanguage('en')">EN</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto px-2 py-4">
+        
+<div class="pb-20 space-y-4">
+    <div class="relative overflow-hidden bg-white rounded-2xl p-0.5 card-shadow">
+        <button onclick="window.location.href='/plans/'" class="w-full bg-gradient-to-r from-[#E30613] via-[#D50714] to-[#B00410] hover:from-[#B00410] hover:to-[#8E030D] text-white font-black py-4 rounded-xl transition-all transform active:scale-95 flex items-center justify-center gap-2 shadow-lg">
+            <i class="uil uil-shopping-bag text-xl"></i>
+            <span class="text-base uppercase tracking-wider" data-fr="Choisir un forfait" data-en="Choose a bundle">Choisir un forfait</span>
+        </button>
+    </div>
+    <div class="bg-gradient-to-br from-[#E30613] to-[#B00410] text-white p-4 sm:p-5 rounded-2xl card-shadow">
+        <div class="flex items-center justify-between mb-3">
+            <div>
+                <p class="text-red-100 text-[10px] font-semibold uppercase tracking-widest" data-fr="État du service" data-en="Service status">État du service</p>
+                <h1 class="text-xl sm:text-2xl font-black mt-1">Airtel DRC</h1>
+            </div>
+            <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center"><i class="uil uil-signal text-2xl text-white"></i></div>
+        </div>
+        <p class="text-red-100 text-xs" data-fr="Choisissez un forfait mobile pour garder le contact au quotidien." data-en="Choose a mobile bundle to stay connected every day.">Choisissez un forfait mobile pour garder le contact au quotidien.</p>
+    </div>
+    <div class="grid grid-cols-2 gap-3">
+        <div class="bg-white rounded-xl p-3 card-shadow border border-gray-100 text-center"><p class="text-gray-500 text-[10px] font-bold uppercase tracking-widest mb-1" data-fr="Téléchargement" data-en="Download">Téléchargement</p><p class="text-xl sm:text-2xl font-black text-gray-900" id="download-speed">164.91</p><p class="text-gray-400 text-[10px] mt-0.5">Mbps</p></div>
+        <div class="bg-white rounded-xl p-3 card-shadow border border-gray-100 text-center"><p class="text-gray-500 text-[10px] font-bold uppercase tracking-widest mb-1" data-fr="Envoi" data-en="Upload">Envoi</p><p class="text-xl sm:text-2xl font-black text-gray-900" id="upload-speed">20.81</p><p class="text-gray-400 text-[10px] mt-0.5">Mbps</p></div>
+        <div class="bg-white rounded-xl p-3 card-shadow border border-gray-100 text-center"><p class="text-gray-500 text-[10px] font-bold uppercase tracking-widest mb-1" data-fr="Latence" data-en="Ping">Latence</p><p class="text-xl sm:text-2xl font-black text-gray-900" id="ping">30</p><p class="text-gray-400 text-[10px] mt-0.5">ms</p></div>
+        <div class="bg-white rounded-xl p-3 card-shadow border border-gray-100 text-center"><p class="text-gray-500 text-[10px] font-bold uppercase tracking-widest mb-1" data-fr="Variation" data-en="Jitter">Variation</p><p class="text-xl sm:text-2xl font-black text-gray-900" id="jitter">4</p><p class="text-gray-400 text-[10px] mt-0.5">ms</p></div>
+    </div>
+    <div class="bg-white rounded-xl p-4 card-shadow border border-gray-100">
+        <div class="flex items-center justify-between mb-3"><div class="flex items-center gap-2"><i class="uil uil-database text-[#E30613] text-xl"></i><h3 class="text-sm font-bold text-gray-900" data-fr="Utilisation des données" data-en="Data usage">Utilisation des données</h3></div><span class="text-[10px] font-semibold text-gray-600 bg-gray-100 px-2 py-0.5 rounded-full" id="data-percentage">44%</span></div>
+        <div class="w-full bg-gray-200 rounded-full h-2 mb-2 overflow-hidden"><div class="bg-gradient-to-r from-[#E30613] to-[#B00410] h-full rounded-full transition-all duration-500" id="data-progress" style="width: 44%;"></div></div>
+        <div class="flex justify-between text-[10px] text-gray-500"><span id="data-used">44.1 Go</span><span id="data-limit">100 Go</span></div>
+    </div>
+    <div class="grid grid-cols-1 gap-3"><button onclick="runSpeedTest(event)" class="w-full bg-white border border-gray-200 text-gray-900 font-bold py-3 rounded-xl transition transform active:scale-95 flex items-center justify-center gap-2 card-shadow"><i class="uil uil-bolt text-[#E30613]"></i><span data-fr="Lancer le diagnostic" data-en="Run diagnostic">Lancer le diagnostic</span></button></div>
+</div>
+<nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-2xl z-40">
+    <div class="max-w-7xl mx-auto px-2 sm:px-4 py-2 sm:py-3 flex justify-around items-center">
+        <a href="/dashboard/" class="flex flex-col items-center gap-1 text-[#E30613] transition-all"><i class="uil uil-wifi text-2xl"></i><span class="text-xs font-semibold" data-fr="Accueil" data-en="Home">Accueil</span></a>
+        <a href="/plans/" class="flex flex-col items-center gap-1 text-gray-600 hover:text-[#E30613] transition-all"><i class="uil uil-shopping-bag text-2xl"></i><span class="text-xs font-semibold" data-fr="Forfaits" data-en="Plans">Forfaits</span></a>
+        
+        <a href="#" class="flex flex-col items-center gap-1 text-gray-600 hover:text-[#E30613] transition-all"><i class="uil uil-setting text-2xl"></i><span class="text-xs font-semibold" data-fr="Aide" data-en="Help">Aide</span></a>
+    </div>
+</nav>
+<script>
+    function generateNetworkStats() {
+        return { download: (Math.random() * 100 + 100).toFixed(2), upload: (Math.random() * 20 + 20).toFixed(2), ping: Math.floor(Math.random() * 40 + 20), jitter: Math.floor(Math.random() * 8 + 2), dataUsed: (Math.random() * 30 + 20).toFixed(1), dataLimit: 100 };
+    }
+    function updateNetworkStats() {
+        const stats = generateNetworkStats();
+        document.getElementById('download-speed').textContent = stats.download;
+        document.getElementById('upload-speed').textContent = stats.upload;
+        document.getElementById('ping').textContent = stats.ping;
+        document.getElementById('jitter').textContent = stats.jitter;
+        document.getElementById('data-used').textContent = stats.dataUsed + ' Go';
+        document.getElementById('data-limit').textContent = stats.dataLimit + ' Go';
+        const percentage = (stats.dataUsed / stats.dataLimit * 100).toFixed(0);
+        document.getElementById('data-percentage').textContent = percentage + '%';
+        document.getElementById('data-progress').style.width = percentage + '%';
+    }
+    function runSpeedTest(event) {
+        const button = event.target.closest('button');
+        const originalText = button.innerHTML;
+        button.innerHTML = '<i class="uil uil-spinner-alt animate-spin"></i> <span data-fr="Analyse..." data-en="Analyzing...">Analyse...</span>';
+        button.disabled = true;
+        setTimeout(() => { updateNetworkStats(); button.innerHTML = originalText; button.disabled = false; }, 2500);
+    }
+    window.airtelPageLanguageChanged = function(language) { if (language === 'en') { document.querySelectorAll('#data-used, #data-limit').forEach(function (el) { el.textContent = el.textContent.replace('Go', 'GB'); }); } else { document.querySelectorAll('#data-used, #data-limit').forEach(function (el) { el.textContent = el.textContent.replace('GB', 'Go'); }); } };
+    document.addEventListener('DOMContentLoaded', updateNetworkStats);
+</script>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#1A3C8F] text-blue-200 py-6 mt-8">
+        <div class="max-w-7xl mx-auto px-3">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                <div>
+                    <h3 class="text-white font-bold mb-4">AIRTEL DRC × STARLINK</h3>
+                    <p class="text-sm" data-fr="Direct to Cell : la connectivité satellite vers les téléphones compatibles." data-en="Direct to Cell: satellite connectivity for compatible phones.">Direct to Cell : la connectivité satellite vers les téléphones compatibles.</p>
+                </div>
+                <div>
+                    <h3 class="text-white font-bold mb-4" data-fr="ASSISTANCE" data-en="SUPPORT">ASSISTANCE</h3>
+                    <p class="text-sm">Email: support@airtel.cd</p>
+                    <p class="text-sm" data-fr="Une assistance pour vous accompagner." data-en="Support to help you every step of the way.">Une assistance pour vous accompagner.</p>
+                </div>
+                <div>
+                    <h3 class="text-white font-bold mb-4" data-fr="PAIEMENT" data-en="PAYMENT">PAIEMENT</h3>
+                    <p class="text-sm" data-fr="Payez avec Airtel Money et gardez votre téléphone à portée de main." data-en="Pay with Airtel Money and keep your phone close by.">Payez avec Airtel Money et gardez votre téléphone à portée de main.</p>
+                </div>
+            </div>
+            <div class="border-t border-blue-700 pt-4 text-center">
+                <p data-fr="© 2026 Airtel DRC. Tous droits réservés." data-en="© 2026 Airtel DRC. All rights reserved.">© 2026 Airtel DRC. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+    <script>
+      function setAirtelLanguage(language) {
+        const selected = language === 'en' ? 'en' : 'fr';
+        document.documentElement.lang = selected;
+        document.querySelectorAll('[data-fr][data-en]').forEach(function (element) {
+          const text = element.getAttribute('data-' + selected);
+          if (text !== null) element.innerHTML = text;
+        });
+        document.querySelectorAll('[data-lang]').forEach(function (button) {
+          const active = button.getAttribute('data-lang') === selected;
+          button.classList.toggle('font-bold', active);
+          button.classList.toggle('text-white', active);
+          button.classList.toggle('text-red-100', !active);
+        });
+        try { localStorage.setItem('airtel-language', selected); } catch (error) {}
+        if (typeof window.airtelPageLanguageChanged === 'function') window.airtelPageLanguageChanged(selected);
+      }
+      document.addEventListener('DOMContentLoaded', function () {
+        let language = 'en';
+        try {
+          const stored = localStorage.getItem('airtel-language');
+          language = stored === 'fr' || stored === 'en' ? stored : 'en';
+          if (language !== 'en') {
+            localStorage.setItem('airtel-language', 'en');
+            language = 'en';
+          }
+        } catch (error) {}
+        localStorage.setItem('airtel-language', 'en');
+        setAirtelLanguage('en');
+      });
+    </script>
+
+
+</body></html>

