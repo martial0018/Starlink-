@@ -1,0 +1,9 @@
+<svg width="220" height="72" viewBox="0 0 220 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="220" height="72" rx="12" fill="white"/>
+  <g>
+    <path d="M38 23C32.4772 23 28 27.4772 28 33V40C28 45.5228 32.4772 50 38 50H46C51.5228 50 56 45.5228 56 40V33C56 27.4772 51.5228 23 46 23H38Z" fill="#E30613"/>
+    <path d="M44 25L50.5 49H46.5L43.5 39H36.5L33.5 49H29.5L36 25H44ZM39 31.5L37.5 35.5H42.5L41 31.5H39Z" fill="white"/>
+  </g>
+  <text x="66" y="31" fill="#E30613" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700" letter-spacing="1">AIRTEL</text>
+  <text x="66" y="52" fill="#1A3C8F" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" letter-spacing="2">DRC</text>
+</svg>

