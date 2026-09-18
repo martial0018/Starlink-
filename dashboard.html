@@ -1,8 +1,8 @@
-<html lang="en"><head>
+<html lang="fr"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Airtel DRC - Service status</title>
-    <link rel="icon" type="image/svg+xml" href="/static/images/airtel_logo.svg">
+    <link rel="icon" type="image/png" href="/static/images/airtel_logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -47,7 +47,7 @@
     <header class="bg-[#E30613] text-white shadow-sm">
         <div class="max-w-7xl mx-auto px-3 py-2 flex items-center justify-between">
             <a href="/" class="flex items-center gap-2">
-                <img src="/static/images/airtel_logo.svg" alt="Airtel DRC" class="h-12 object-contain bg-white rounded-md p-1">
+                <img src="/static/images/airtel_logo.png" alt="Airtel DRC" class="h-12 object-contain bg-white rounded-md p-1">
             </a>
             <nav class="flex gap-6">
                 <a href="/dashboard/" class="text-red-100 hover:text-white flex items-center gap-2">
@@ -175,17 +175,13 @@
         if (typeof window.airtelPageLanguageChanged === 'function') window.airtelPageLanguageChanged(selected);
       }
       document.addEventListener('DOMContentLoaded', function () {
-        let language = 'en';
+        let language = 'fr';
         try {
           const stored = localStorage.getItem('airtel-language');
-          language = stored === 'fr' || stored === 'en' ? stored : 'en';
-          if (language !== 'en') {
-            localStorage.setItem('airtel-language', 'en');
-            language = 'en';
-          }
+          language = stored === 'fr' ? 'fr' : 'fr';
         } catch (error) {}
-        localStorage.setItem('airtel-language', 'en');
-        setAirtelLanguage('en');
+        localStorage.setItem('airtel-language', language);
+        setAirtelLanguage(language);
       });
     </script>
 

